@@ -161,7 +161,7 @@ nav.main a:hover,nav.main a.on{opacity:1}nav.main a:hover::after,nav.main a.on::
 .note{font-size:.76rem;color:var(--mute);margin-top:14px}
 
 /* booking page */
-.bk{display:grid;grid-template-columns:1fr 380px;gap:50px;padding:46px 0 110px;align-items:start}
+.bk{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:50px;padding:46px 0 110px;align-items:start}
 .steps{display:flex;gap:0;margin-bottom:34px;border-bottom:1px solid var(--line)}
 .steps button{flex:1;padding:14px 8px;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--mute);border-bottom:2px solid transparent;margin-bottom:-1px;text-align:left}
 .steps button b{font-family:var(--serif);font-size:1.2rem;margin-right:.4em;font-weight:500}
@@ -276,7 +276,7 @@ footer .logo{color:#fff}
   .sp,.acad .ag,.ab,.ct2{grid-template-columns:1fr;gap:40px}
   .nm{grid-template-columns:1fr 1fr}.nm div:nth-child(2){border-right:0}.nm div{border-bottom:1px solid var(--line)}
   .svc{grid-template-columns:1fr;gap:20px}.side{position:static;display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}.side h4{display:none}.side button{flex:0 0 auto;border:1px solid var(--line);padding:.7em 1.2em;white-space:nowrap}.side button span{display:none}.side button:hover{padding-left:1.2em}
-  .bk{grid-template-columns:1fr;padding-bottom:140px}.sum{position:static}
+  .bk{grid-template-columns:minmax(0,1fr);padding-bottom:140px}.bk>*{min-width:0}.sum{position:static}.dates{max-width:100%}
   .fg{grid-template-columns:1fr 1fr}
   .mbar{display:flex}
   .sec{padding:70px 0}
