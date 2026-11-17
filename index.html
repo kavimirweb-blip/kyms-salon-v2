@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kym's Salon | Hair, Makeup, Nails, Lashes | Rajouri Garden, Delhi</title>
+<meta name="description" content="Book hair, colour, bridal makeup, nails, lashes and permanent makeup at Kym's Salon, Rajouri Garden. Choose services, pick a slot and pay online. A concept demo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Brief: Kym's Salon, Rajouri Garden. Hair, colour, bridal and party makeup, nails, lashes, brows, permanent makeup, academy. 16.5K on Instagram.
+   Customer feedback: v1 was hard to understand. They want a full website where clients choose services, book a slot and pay.
+   References studied: Lakme Salon (service catalogue with prices, "Book appointment" always in the header, clean cards) and Geetanjali Salon (quiet, high-end, black and white, letter-spaced nav, big numbers).
+   Direction: calm luxury. Ivory, ink, champagne gold. One clear job per screen: pick services, pick a time, pay. */
+:root{
+  --ink:#141210; --ink2:#2a2622; --ivory:#faf7f1; --stone:#efe9de; --line:#ddd4c4; --gold:#b08d57; --gold-d:#8f6f3e; --gold-l:#e6d3ae; --mute:#80776b; --ok:#2f7d55; --err:#b3392f;
+  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Jost',system-ui,sans-serif; --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-weight:400;background:var(--ivory);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{width:min(1240px,100% - 48px);margin:0 auto}
+.lab{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-d);font-weight:500}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;line-height:1.05;letter-spacing:-.005em}
+h2{font-size:clamp(2.2rem,4.6vw,3.8rem)}
+h2 em,h1 em{font-style:italic;color:var(--gold-d)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:1em 1.9em;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;text-decoration:none;border:1px solid transparent;transition:transform .3s var(--ease),background .3s,color .3s,border-color .3s;white-space:nowrap}
+.btn-d{background:var(--ink);color:var(--ivory)}.btn-d:hover{background:var(--gold-d);transform:translateY(-2px)}
+.btn-g{background:linear-gradient(180deg,#d6b878,#b08d57);color:#1d1507}.btn-g:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.btn-o{border-color:currentColor}.btn-o:hover{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.rv{opacity:0;transform:translateY(22px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.pg{display:none}.pg.on{display:block;animation:fade .5s var(--ease)}
+@keyframes fade{from{opacity:0}}
+
+/* top */
+.topbar{background:var(--ink);color:var(--gold-l);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;text-align:center;padding:9px 12px}
+.topbar a{text-decoration:none;color:#fff;margin-left:1em}
+header.nav{position:sticky;top:0;z-index:60;background:rgba(250,247,241,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{font-family:var(--serif);font-size:1.9rem;letter-spacing:.34em;text-decoration:none;font-weight:600;padding-left:.34em;text-transform:uppercase;line-height:1}
+.logo small{display:block;font-family:var(--sans);font-size:.5rem;letter-spacing:.5em;font-weight:500;color:var(--gold-d);margin-top:4px;padding-left:.1em}
+nav.main{display:flex;gap:34px}
+nav.main a{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;font-weight:500;padding:6px 0;position:relative;opacity:.8}
+nav.main a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold-d);transition:width .35s var(--ease)}
+nav.main a:hover,nav.main a.on{opacity:1}nav.main a:hover::after,nav.main a.on::after{width:100%}
+.right{display:flex;align-items:center;gap:14px}
+.cartb{position:relative;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;padding:.7em 1em;border:1px solid var(--line);transition:.3s}
+.cartb:hover{border-color:var(--ink)}
+.cartb b{display:inline-grid;place-items:center;min-width:1.7em;height:1.7em;background:var(--gold);color:#1d1507;border-radius:50%;margin-left:.4em;font-size:.72rem}
+.burger{display:none;width:44px;height:44px;border:1px solid var(--line);position:relative}
+.burger i,.burger i::before,.burger i::after{position:absolute;left:12px;width:18px;height:1.5px;background:var(--ink);content:""}
+.burger i{top:21px}.burger i::before{top:-6px;left:0}.burger i::after{top:6px;left:0}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:min(82vh,760px);background:var(--stone)}
+.hero .tx{display:flex;flex-direction:column;justify-content:center;padding:70px max(24px,6vw) 70px max(24px,calc((100vw - 1240px)/2))}
+.hero h1{font-size:clamp(3.2rem,7vw,6.4rem);line-height:.95;margin:18px 0 22px}
+.hero p.s{max-width:28em;color:#554d43;font-size:1.05rem}
+.hero .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.hero .proof{display:flex;gap:30px;flex-wrap:wrap;margin-top:42px;padding-top:24px;border-top:1px solid var(--line)}
+.proof b{display:block;font-family:var(--serif);font-size:2.2rem;font-weight:500;line-height:1}
+.proof span{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.hero .im{position:relative;overflow:hidden;background:#cfc3b0}
+.hero .im img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0;transition:opacity 1.2s}
+.hero .im img.on{opacity:1}
+.hero .dots{position:absolute;left:24px;bottom:22px;display:flex;gap:8px;z-index:3}
+.hero .dots button{width:34px;height:2px;background:rgba(255,255,255,.55)}
+.hero .dots button.on{background:#fff}
+.hero .cap{position:absolute;right:22px;bottom:18px;color:#fff;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;z-index:3;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+
+/* quick book strip */
+.qb{background:var(--ink);color:var(--ivory)}
+.qb .wrap{display:grid;grid-template-columns:repeat(4,1fr) auto;gap:0}
+.qb div{padding:22px 24px;border-right:1px solid rgba(255,255,255,.14)}
+.qb small{display:block;font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-l);margin-bottom:4px}
+.qb p{font-size:.98rem}
+.qb .btn{align-self:center;margin:0 0 0 24px}
+
+.sec{padding:100px 0}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:44px}
+.sh p{max-width:28em;color:var(--mute)}
+
+/* category tiles */
+.cats{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.ct{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--ink);color:#fff;text-align:left;display:block}
+.ct img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.8;transition:transform 1.3s var(--ease),opacity .5s}
+.ct:hover img{transform:scale(1.07);opacity:.95}
+.ct.t{background:linear-gradient(160deg,#2a2622,#141210);}
+.ct.t::before{content:attr(data-n);position:absolute;right:14px;top:6px;font-family:var(--serif);font-size:5rem;color:rgba(230,211,174,.18);line-height:1}
+.ct .c{position:absolute;left:0;right:0;bottom:0;padding:44px 16px 16px;background:linear-gradient(transparent,rgba(0,0,0,.78))}
+.ct h3{font-size:1.5rem}
+.ct small{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-l)}
+
+/* how */
+.how{background:var(--stone)}
+.hw{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.hw div{padding:30px 26px 10px 0;border-right:1px solid var(--line);padding-left:26px}
+.hw div:first-child{padding-left:0}.hw div:last-child{border:0}
+.hw .n{font-family:var(--serif);font-style:italic;color:var(--gold-d);font-size:1.3rem}
+.hw h3{font-size:1.6rem;margin:6px 0}
+.hw p{color:var(--mute);font-size:.94rem}
+
+/* spotlight (bridal) */
+.spot{background:var(--ink);color:var(--ivory)}
+.spot .lab{color:var(--gold-l)}.spot h2 em{color:var(--gold-l)}
+.sp{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.sp .ph{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sp .ph img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4}
+.sp .ph img:last-child{margin-top:36px}
+.sp ul{list-style:none;margin:26px 0 30px;border-top:1px solid rgba(255,255,255,.2)}
+.sp li{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.2)}
+.sp li span:last-child{color:var(--gold-l)}
+
+/* numbers */
+.nums{border-block:1px solid var(--line)}
+.nm{display:grid;grid-template-columns:repeat(4,1fr)}
+.nm div{padding:46px 0;text-align:center;border-right:1px solid var(--line)}
+.nm div:last-child{border:0}
+.nm b{display:block;font-family:var(--serif);font-size:clamp(3rem,6vw,5rem);font-weight:500;line-height:1}
+.nm span{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--mute)}
+
+/* academy */
+.acad .ag{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+.acad img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.acad ul{list-style:none;margin:24px 0 28px}
+.acad li{padding:12px 0;border-top:1px solid var(--line)}
+.acad li:last-child{border-bottom:1px solid var(--line)}
+
+/* services page */
+.pgh{padding:70px 0 40px;background:var(--stone);border-bottom:1px solid var(--line)}
+.pgh h1{font-size:clamp(2.8rem,6vw,5rem);margin-top:12px}
+.pgh p{max-width:34em;color:var(--mute);margin-top:12px}
+.svc{display:grid;grid-template-columns:240px 1fr;gap:50px;padding:50px 0 100px;align-items:start}
+.side{position:sticky;top:98px}
+.side h4{font-family:var(--sans);font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-d);margin-bottom:12px;font-weight:500}
+.side button{display:flex;justify-content:space-between;width:100%;padding:13px 0;border-bottom:1px solid var(--line);font-size:.9rem;text-align:left;transition:padding .3s var(--ease),color .3s}
+.side button:hover{padding-left:8px}
+.side button.on{color:var(--gold-d);font-weight:500}
+.side button span{color:var(--mute);font-size:.78rem}
+.cat{margin-bottom:56px;scroll-margin-top:100px}
+.cat>h2{font-size:2.4rem;margin-bottom:6px}
+.cat>p{color:var(--mute);margin-bottom:18px;max-width:36em}
+.item{display:grid;grid-template-columns:1fr auto auto;gap:22px;align-items:center;padding:20px 0;border-top:1px solid var(--line)}
+.item:last-child{border-bottom:1px solid var(--line)}
+.item h3{font-size:1.45rem}
+.item small{color:var(--mute);font-size:.84rem;display:block;margin-top:2px}
+.item .pr{text-align:right;line-height:1.2}
+.item .pr b{font-family:var(--serif);font-size:1.5rem;font-weight:500}
+.item .pr span{display:block;font-size:.72rem;letter-spacing:.12em;color:var(--mute);text-transform:uppercase}
+.add{padding:.8em 1.4em;border:1px solid var(--ink);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;transition:.3s;min-width:104px}
+.add:hover{background:var(--ink);color:var(--ivory)}
+.add.in{background:var(--gold);border-color:var(--gold);color:#1d1507}
+.note{font-size:.76rem;color:var(--mute);margin-top:14px}
+
+/* booking page */
+.bk{display:grid;grid-template-columns:1fr 380px;gap:50px;padding:46px 0 110px;align-items:start}
+.steps{display:flex;gap:0;margin-bottom:34px;border-bottom:1px solid var(--line)}
+.steps button{flex:1;padding:14px 8px;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--mute);border-bottom:2px solid transparent;margin-bottom:-1px;text-align:left}
+.steps button b{font-family:var(--serif);font-size:1.2rem;margin-right:.4em;font-weight:500}
+.steps button.on{color:var(--ink);border-bottom-color:var(--gold)}
+.steps button.done{color:var(--gold-d)}
+.panel h2{font-size:2.3rem;margin-bottom:6px}
+.panel>p.s{color:var(--mute);margin-bottom:24px}
+.mini{display:grid;gap:0;margin-bottom:26px}
+.sel{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+.sel select{padding:.8em 1.1em;border:1px solid var(--line);background:#fff;min-width:200px}
+.dates{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;margin-bottom:24px}
+.dt{flex:0 0 74px;padding:12px 0;border:1px solid var(--line);text-align:center;background:#fff;transition:.25s}
+.dt small{display:block;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.dt b{display:block;font-family:var(--serif);font-size:1.8rem;font-weight:500;line-height:1.1}
+.dt span{font-size:.64rem;color:var(--mute);letter-spacing:.08em;text-transform:uppercase}
+.dt:hover{border-color:var(--ink)}
+.dt.on{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.dt.on small,.dt.on span{color:var(--gold-l)}
+.dt[disabled]{opacity:.35;pointer-events:none}
+.slots h4{font-family:var(--sans);font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-d);margin:18px 0 10px;font-weight:500}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(98px,1fr));gap:8px}
+.sl{padding:.85em 0;border:1px solid var(--line);background:#fff;font-size:.9rem;transition:.25s;text-align:center}
+.sl:hover{border-color:var(--ink)}
+.sl.on{background:var(--gold);border-color:var(--gold);color:#1d1507;font-weight:500}
+.sl[disabled]{text-decoration:line-through;opacity:.35;pointer-events:none;background:var(--stone)}
+.fld{display:grid;gap:6px;margin-bottom:18px}
+.fld label{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500;color:var(--mute)}
+.fld input,.fld textarea{padding:.95em 1.1em;border:1px solid var(--line);background:#fff;width:100%;transition:border-color .25s}
+.fld input:focus,.fld textarea:focus{border-color:var(--gold);outline:0}
+.fld input.bad{border-color:var(--err)}
+.fld .er{font-size:.78rem;color:var(--err);min-height:1em}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.nav2{display:flex;justify-content:space-between;gap:12px;margin-top:30px}
+.sum{position:sticky;top:98px;background:#fff;border:1px solid var(--line);padding:26px}
+.sum h3{font-size:1.7rem;margin-bottom:12px}
+.sum ul{list-style:none}
+.sum li{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:.92rem}
+.sum li button{color:var(--mute);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;margin-left:8px}
+.sum li button:hover{color:var(--err)}
+.sum .meta{margin:14px 0;font-size:.88rem;color:#554d43;display:grid;gap:4px}
+.sum .tot{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--ink);padding-top:14px;margin-top:6px}
+.sum .tot b{font-family:var(--serif);font-size:2rem;font-weight:500}
+.sum .empty{color:var(--mute);font-size:.92rem;padding:10px 0}
+.pay{display:grid;gap:10px;margin-bottom:22px}
+.po{display:grid;grid-template-columns:22px 1fr auto;gap:14px;align-items:center;padding:16px 18px;border:1px solid var(--line);background:#fff;text-align:left;transition:.25s;cursor:pointer}
+.po:hover{border-color:var(--ink)}
+.po.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.po i{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--mute);position:relative}
+.po.on i{border-color:var(--gold)}.po.on i::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--gold)}
+.po b{font-weight:500}.po small{display:block;color:var(--mute);font-size:.8rem}
+.po .amt{font-family:var(--serif);font-size:1.4rem}
+.methods{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.methods button{padding:.7em 1.3em;border:1px solid var(--line);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;background:#fff}
+.methods button.on{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.demo{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;background:#f4ecd9;border:1px solid var(--gold-l);font-size:.82rem;margin-bottom:20px}
+.demo b{color:var(--gold-d)}
+.proc{position:fixed;inset:0;z-index:300;background:rgba(20,18,16,.78);display:none;place-items:center;color:#fff;text-align:center}
+.proc.on{display:grid}
+.proc div{padding:30px}
+.spin{width:46px;height:46px;border:2px solid rgba(255,255,255,.25);border-top-color:var(--gold-l);border-radius:50%;margin:0 auto 16px;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.dn{text-align:center;padding:30px 0 10px}
+.dn .ck{width:76px;height:76px;border-radius:50%;background:var(--ok);margin:0 auto 18px;position:relative;animation:pop .6s var(--ease)}
+.dn .ck::after{content:"";position:absolute;left:27px;top:14px;width:18px;height:34px;border:solid #fff;border-width:0 4px 4px 0;transform:rotate(40deg)}
+@keyframes pop{from{transform:scale(0)}}
+.ticket{margin:26px auto;max-width:520px;text-align:left;background:#fff;border:1px solid var(--line);position:relative}
+.ticket::before,.ticket::after{content:"";position:absolute;top:96px;width:20px;height:20px;border-radius:50%;background:var(--ivory);border:1px solid var(--line)}
+.ticket::before{left:-11px}.ticket::after{right:-11px}
+.ticket .th{background:var(--ink);color:var(--ivory);padding:22px 26px}
+.ticket .th small{font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-l)}
+.ticket .th b{display:block;font-family:var(--serif);font-size:2rem;font-weight:500;letter-spacing:.1em}
+.ticket .tb{padding:26px;border-top:1px dashed var(--line);display:grid;gap:12px}
+.ticket .tb div{display:flex;justify-content:space-between;gap:12px;font-size:.94rem}
+.ticket .tb span:first-child{color:var(--mute);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}
+.acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* about + contact */
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;padding:70px 0 40px}
+.ab img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.ab p{color:#554d43;margin-top:16px;max-width:32em}
+.ct2{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding:60px 0 100px}
+.ci div{padding:20px 0;border-top:1px solid var(--line)}
+.ci div:last-child{border-bottom:1px solid var(--line)}
+.ci small{display:block;font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-d);font-weight:500;margin-bottom:4px}
+.ci p,.ci a{font-size:1.15rem;text-decoration:none}
+.map{background:var(--stone);border:1px solid var(--line);display:grid;place-items:center;text-align:center;padding:40px;min-height:340px}
+
+footer{background:var(--ink);color:var(--ivory);padding:70px 0 0;overflow:hidden}
+.fg{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:50px}
+footer h4{font-family:var(--sans);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-l);margin-bottom:14px;font-weight:500}
+footer a,footer p{display:block;text-decoration:none;font-size:.92rem;opacity:.8;padding:3px 0}
+footer a:hover{opacity:1;color:var(--gold-l)}
+footer .logo{color:#fff}
+.fb{border-top:1px solid rgba(255,255,255,.15);padding:20px 0 96px;font-size:.74rem;opacity:.6;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);z-index:250;background:#fff;color:var(--ink);padding:.9em 1.4em;box-shadow:0 20px 50px -10px rgba(0,0,0,.4);font-size:.88rem;max-width:min(92vw,380px);text-align:center;opacity:0;pointer-events:none;transition:.5s var(--ease);border-left:3px solid var(--gold)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.mbar{position:fixed;inset:auto 0 0 0;z-index:70;display:none;background:var(--ink);color:#fff;padding:10px 14px;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -10px 30px -10px rgba(0,0,0,.5)}
+.mbar small{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-l);display:block}
+.mbar b{font-family:var(--serif);font-size:1.4rem;font-weight:500}
+.drawer{position:fixed;inset:0 0 0 auto;width:min(86vw,340px);background:var(--ivory);z-index:200;transform:translateX(100%);transition:transform .45s var(--ease);padding:80px 28px 28px;display:flex;flex-direction:column;gap:6px;box-shadow:-20px 0 50px -20px rgba(0,0,0,.4)}
+.drawer.on{transform:none}
+.drawer a{padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;font-family:var(--serif);font-size:1.7rem}
+.drawer .x{position:absolute;right:16px;top:16px;width:44px;height:44px;border:1px solid var(--line);font-size:1.4rem}
+
+@media(max-width:1000px){
+  nav.main{display:none}.burger{display:block}
+  .hero{grid-template-columns:1fr}.hero .im{min-height:380px;order:-1}
+  .hero .tx{padding:50px 24px}
+  .qb .wrap{grid-template-columns:1fr 1fr}.qb div{border-bottom:1px solid rgba(255,255,255,.14)}.qb .btn{margin:16px 0;grid-column:1/-1}
+  .cats{grid-template-columns:1fr 1fr 1fr}
+  .hw{grid-template-columns:1fr 1fr}.hw div{padding:24px 16px 10px}.hw div:nth-child(odd){padding-left:0}.hw div:nth-child(2){border-right:0}
+  .sp,.acad .ag,.ab,.ct2{grid-template-columns:1fr;gap:40px}
+  .nm{grid-template-columns:1fr 1fr}.nm div:nth-child(2){border-right:0}.nm div{border-bottom:1px solid var(--line)}
+  .svc{grid-template-columns:1fr;gap:20px}.side{position:static;display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}.side h4{display:none}.side button{flex:0 0 auto;border:1px solid var(--line);padding:.7em 1.2em;white-space:nowrap}.side button span{display:none}.side button:hover{padding-left:1.2em}
+  .bk{grid-template-columns:1fr;padding-bottom:140px}.sum{position:static}
+  .fg{grid-template-columns:1fr 1fr}
+  .mbar{display:flex}
+  .sec{padding:70px 0}
+}
+@media(max-width:560px){
+  .wrap{width:min(1240px,100% - 32px)}
+  .cats{grid-template-columns:1fr 1fr}
+  .item{grid-template-columns:1fr auto;gap:10px 14px}.item .add{grid-column:1/-1;width:100%}
+  .two{grid-template-columns:1fr}
+  .steps button{font-size:.6rem;letter-spacing:.1em;padding:12px 4px}.steps button b{display:block}
+  .logo{font-size:1.5rem;letter-spacing:.24em}
+  .cartb{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="topbar">Rajouri Garden, New Delhi · Book online in two minutes<a href="tel:+919599077196">095990 77196</a></div>
+<header class="nav"><div class="wrap">
+  <a class="logo" href="#/">Kym's<small>SALON</small></a>
+  <nav class="main"><a href="#/" data-p="home">Home</a><a href="#/services" data-p="services">Services</a><a href="#/book" data-p="book">Book</a><a href="#/about" data-p="about">About</a><a href="#/contact" data-p="contact">Contact</a></nav>
+  <div class="right"><a class="cartb" href="#/book">Your list <b id="cn">0</b></a><a class="btn btn-g" href="#/book" style="padding:.9em 1.4em">Book appointment</a><button class="burger" id="burger" aria-label="Menu"><i></i></button></div>
+</div></header>
+<div class="drawer" id="drawer"><button class="x" id="dx" aria-label="Close">×</button><a href="#/">Home</a><a href="#/services">Services</a><a href="#/book">Book</a><a href="#/about">About</a><a href="#/contact">Contact</a></div>
+
+<!-- HOME -->
+<main class="pg on" id="p-home">
+  <section class="hero">
+    <div class="tx">
+      <p class="lab">Hair · Makeup · Nails · Lashes</p>
+      <h1>Your look,<br>booked in <em>minutes.</em></h1>
+      <p class="s">Choose your services, pick a time that works, and pay online. Kym's Salon in Rajouri Garden, from everyday cuts to the bridal day.</p>
+      <div class="row"><a class="btn btn-d" href="#/book">Book appointment</a><a class="btn btn-o" href="#/services">View services &amp; prices</a></div>
+      <div class="proof"><div><b>16.5K</b><span>Instagram family</span></div><div><b>975</b><span>Looks posted</span></div><div><b>7 days</b><span>Online booking</span></div></div>
+    </div>
+    <div class="im" id="him">
+      <img src="img/ash-waves.jpg" alt="Ash blonde balayage waves" class="on">
+      <img src="img/bridal-real.jpg" alt="Bridal makeup and styling at Kym's Salon">
+      <img src="img/hair-real.jpg" alt="Long layered hair colour" style="object-position:50% 30%">
+      <div class="cap" id="hcap">Hair colour</div>
+      <div class="dots" id="hdots"></div>
+    </div>
+  </section>
+  <section class="qb"><div class="wrap">
+    <div><small>Where</small><p>Rajouri Garden, West Delhi</p></div>
+    <div><small>Call</small><p>095990 77196</p></div>
+    <div><small>Book</small><p>Online, 7 days ahead</p></div>
+    <div><small>Pay</small><p>UPI, card or at the salon</p></div>
+    <a class="btn btn-g" href="#/book">Book now</a>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="sh rv"><div><p class="lab">What we do</p><h2 style="margin-top:12px">Everything for<br><em>hair and beauty.</em></h2></div><p>Pick a category to see the full list with time and price, then add what you like to your list.</p></div>
+    <div class="cats rv" id="cats"></div>
+  </div></section>
+
+  <section class="sec how"><div class="wrap">
+    <div class="sh rv"><div><p class="lab">How booking works</p><h2 style="margin-top:12px">Four steps,<br><em>no phone tag.</em></h2></div></div>
+    <div class="hw rv">
+      <div><span class="n">01</span><h3>Choose services</h3><p>Browse by category and add as many as you need.</p></div>
+      <div><span class="n">02</span><h3>Pick a slot</h3><p>See open times for the next seven days.</p></div>
+      <div><span class="n">03</span><h3>Pay online</h3><p>Pay a small deposit or the full amount by UPI or card. Or pay at the salon.</p></div>
+      <div><span class="n">04</span><h3>Get confirmation</h3><p>A booking ID, calendar file and a WhatsApp summary.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec spot"><div class="wrap sp">
+    <div class="rv"><p class="lab">Bridal &amp; party</p><h2 style="margin-top:12px">The day you've<br><em>planned for.</em></h2>
+      <p style="margin-top:16px;opacity:.8;max-width:28em">Bridal, engagement and party looks, planned well ahead. Book a trial first, then lock in your date.</p>
+      <ul><li><span>Bridal makeup</span><span>from ₹ 18,000*</span></li><li><span>Engagement &amp; sangeet</span><span>from ₹ 7,500*</span></li><li><span>Party makeup</span><span>from ₹ 3,000*</span></li><li><span>Bridal trial</span><span>₹ 2,500*</span></li></ul>
+      <a class="btn btn-g" href="#/book" data-cat="Bridal & Makeup">Book bridal trial</a><p class="note" style="color:rgba(255,255,255,.55)">*Sample prices. We'll add Kym's real list.</p></div>
+    <div class="ph rv"><img src="img/bridal-real.jpg" alt="Bridal look"><img src="img/makeup-real.jpg" alt="Makeup look" style="object-position:30% 50%"></div>
+  </div></section>
+
+  <section class="nums"><div class="wrap nm">
+    <div><b>16.5K</b><span>Followers</span></div><div><b>975</b><span>Posts</span></div><div><b>6</b><span>Service categories</span></div><div><b>1</b><span>Roof in Rajouri Garden</span></div>
+  </div></section>
+
+  <section class="sec acad"><div class="wrap ag">
+    <div class="rv"><img src="img/hair-real.jpg" alt="Hair work from Kym's" style="object-position:50% 25%"></div>
+    <div class="rv"><p class="lab">Kym's Academy</p><h2 style="margin-top:12px">Learn the craft<br><em>with us.</em></h2>
+      <p style="margin-top:14px;color:#554d43;max-width:30em">Kym's shares student work on Instagram. Ask about makeup, hair and nail courses and upcoming batches.</p>
+      <ul><li>Makeup and hair styling</li><li>Nail art and extensions</li><li>Lashes and brows</li></ul>
+      <a class="btn btn-d" href="#" data-wa="Hi Kym's Salon! I'd like to know about your academy courses.">Ask about courses</a></div>
+  </div></section>
+</main>
+
+<!-- SERVICES -->
+<main class="pg" id="p-services">
+  <div class="pgh"><div class="wrap"><p class="lab">Services &amp; prices</p><h1>The full <em>menu.</em></h1><p>Add anything to your list, then continue to pick a time. Prices are samples for this demo.</p></div></div>
+  <div class="wrap svc">
+    <aside class="side" id="side"><h4>Categories</h4></aside>
+    <div id="catalog"></div>
+  </div>
+</main>
+
+<!-- BOOK -->
+<main class="pg" id="p-book">
+  <div class="pgh"><div class="wrap"><p class="lab">Book appointment</p><h1>Reserve your <em>time.</em></h1></div></div>
+  <div class="wrap bk" id="bkwrap">
+    <div>
+      <div class="steps" id="steps"></div>
+      <div class="panel" id="panel"></div>
+    </div>
+    <aside class="sum" id="sum"></aside>
+  </div>
+</main>
+
+<!-- ABOUT -->
+<main class="pg" id="p-about">
+  <div class="pgh"><div class="wrap"><p class="lab">About</p><h1>A salon in <em>Rajouri Garden.</em></h1></div></div>
+  <div class="wrap ab">
+    <img src="img/ash-waves.jpg" alt="Hair colour by Kym's">
+    <div><p class="lab">Our story</p><h2 style="margin-top:12px">Hair, makeup and<br><em>everything between.</em></h2>
+      <p>Kym's Salon offers hair, colour, makeup, bridal looks, a nail studio, lash extensions, permanent makeup and hair extensions from Rajouri Garden, New Delhi. The team shares its work with more than 16,000 people on Instagram.</p>
+      <p>This page is a concept for the new website. Real team names, history and awards can be added once we have them from you.</p>
+      <p style="margin-top:24px"><a class="btn btn-d" href="#/book">Book appointment</a></p></div>
+  </div>
+</main>
+
+<!-- CONTACT -->
+<main class="pg" id="p-contact">
+  <div class="pgh"><div class="wrap"><p class="lab">Contact</p><h1>Come and <em>say hello.</em></h1></div></div>
+  <div class="wrap ct2">
+    <div class="ci">
+      <div><small>Address</small><p>Rajouri Garden, West Delhi, New Delhi</p></div>
+      <div><small>Call or WhatsApp</small><a href="tel:+919599077196">095990 77196</a> · <a href="tel:+918700347335">087003 47335</a></div>
+      <div><small>Instagram</small><a href="https://www.instagram.com/kymssalon/" target="_blank" rel="noopener">@kymssalon</a></div>
+      <div><small>Makeup account</small><a href="https://www.instagram.com/kymsmakeover/" target="_blank" rel="noopener">@kymsmakeover</a></div>
+      <div style="border:0;padding-top:26px"><a class="btn btn-g" href="#/book">Book appointment</a></div>
+    </div>
+    <div class="map"><div><p class="lab">Find us</p><h3 style="font-size:2rem;margin:10px 0 18px">Rajouri Garden</h3><a class="btn btn-o" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Kym%27s+Salon+Rajouri+Garden+New+Delhi">Open in Google Maps</a></div></div>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <div class="fg">
+    <div><a class="logo" href="#/" style="display:block">Kym's<small>SALON</small></a><p style="margin-top:14px;max-width:22em">Hair, makeup, nails and lashes. Rajouri Garden, New Delhi.</p></div>
+    <div><h4>Explore</h4><a href="#/services">Services</a><a href="#/book">Book appointment</a><a href="#/about">About</a><a href="#/contact">Contact</a></div>
+    <div><h4>Services</h4><a href="#/services" data-cat="Hair">Hair</a><a href="#/services" data-cat="Bridal & Makeup">Bridal &amp; makeup</a><a href="#/services" data-cat="Nails">Nails</a><a href="#/services" data-cat="Lashes & Brows">Lashes &amp; brows</a></div>
+    <div><h4>Visit</h4><p>Rajouri Garden, New Delhi</p><a href="tel:+919599077196">095990 77196</a><a href="https://www.instagram.com/kymssalon/" target="_blank" rel="noopener">@kymssalon</a></div>
+  </div>
+  <div class="fb"><span>© Kym's Salon. Concept website by Kavimir. Sample prices and slots.</span><span>Payments shown here are a demo; no money is charged.</span></div>
+</div></footer>
+
+<div class="mbar" id="mbar"><div><small id="mbn">0 services</small><b id="mbt">₹ 0</b></div><a class="btn btn-g" href="#/book" id="mbb">Book now</a></div>
+<div class="proc" id="proc"><div><div class="spin"></div><p id="proct">Processing payment…</p></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const NUM='919599077196';
+const inr=n=>'₹ '+n.toLocaleString('en-IN');
+const wa=t=>'https://wa.me/'+NUM+'?text='+encodeURIComponent(t);
+const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),3000)};
+document.addEventListener('click',e=>{const a=e.target.closest('[data-wa]');if(a){e.preventDefault();window.open(wa(a.dataset.wa),'_blank','noopener')}});
+
+/* sample catalogue: prices and times are samples */
+const CAT=[
+ {n:'Hair',img:'ash-waves.jpg',d:'Cuts, colour, treatments and styling.',items:[
+  ['Haircut & finish','Wash, cut and blow-dry',60,1200],['Kids haircut','Under 12',30,600],['Blow-dry & styling','Waves, straight or curls',45,800],['Global hair colour','Single shade, root to tip',120,4500],['Highlights','Per section, toner included',150,5500],['Balayage','Hand-painted, with toner',210,9000],['Keratin / smoothing','Shorter to mid-length hair',180,7000],['Hair spa','Deep nourish and scalp massage',60,1800],['Hair extensions','Consultation and fitting, hair extra',120,6000]]},
+ {n:'Bridal & Makeup',img:'bridal-real.jpg',d:'Trials, party looks and the bridal day.',items:[
+  ['Party makeup','Soft glam to full party',75,3000],['Engagement / sangeet makeup','With hairstyle',120,7500],['Bridal makeup','Includes hair and draping',210,18000],['Bridal trial','Planned well ahead of the date',90,2500],['Hairstyling only','Updo, braid or waves',45,1500]]},
+ {n:'Nails',img:null,d:'Nail studio sets, art and care.',items:[
+  ['Classic manicure','Shape, cuticle care, polish',40,700],['Gel polish','Long-wear gel colour',45,1100],['Nail extensions','Acrylic or gel, per set',120,3200],['Nail art','Per hand, design extra',30,800],['Pedicure','Soak, scrub, polish',60,1200]]},
+ {n:'Lashes & Brows',img:null,d:'Extensions, lifts and brow shaping.',items:[
+  ['Lash extensions','Classic set',90,3500],['Volume lashes','Fuller, softer look',120,4800],['Lash lift & tint','Natural curl',60,2200],['Brow shaping','Thread or wax',20,300],['Microblading','Semi-permanent, touch-up extra',150,11000]]},
+ {n:'Skin',img:null,d:'Facials, clean-ups and glow treatments.',items:[
+  ['Clean-up','Cleanse, scrub, mask',45,1200],['Hydrating facial','For dry or dull skin',60,2500],['De-tan','Face and neck',30,900],['Glow facial','Brightening and massage',75,3200]]},
+ {n:'Permanent Makeup',img:null,d:'Semi-permanent brows, lips and liner.',items:[
+  ['Lip blush','Consultation included',120,12000],['Eyeliner PMU','Subtle or defined',90,9000],['Brow PMU','Powder or ombré',150,11000]]}
+];
+const ITEMS=[];CAT.forEach(c=>c.items.forEach(i=>ITEMS.push({id:ITEMS.length,cat:c.n,name:i[0],desc:i[1],min:i[2],price:i[3]})));
+const ST={cart:new Set(),date:null,time:null,artist:'Any available artist',name:'',phone:'',note:'',step:0,pay:'deposit',method:'UPI',done:null};
+try{const s=JSON.parse(sessionStorage.getItem('ky')||'null');if(s&&s.cart)ST.cart=new Set(s.cart)}catch(e){}
+const save=()=>{try{sessionStorage.setItem('ky',JSON.stringify({cart:[...ST.cart]}))}catch(e){}};
+const cartItems=()=>[...ST.cart].map(i=>ITEMS[i]).filter(Boolean);
+const totals=()=>{const c=cartItems();return{n:c.length,price:c.reduce((s,i)=>s+i.price,0),min:c.reduce((s,i)=>s+i.min,0)}};
+const dur=m=>m>=60?(Math.floor(m/60)+' hr'+(m%60?' '+(m%60)+' min':'')):m+' min';
+
+/* categories tiles on home */
+CAT.forEach((c,i)=>{const b=document.createElement('a');b.className='ct'+(c.img?'':' t');b.href='#/services';b.dataset.n='0'+(i+1);b.dataset.cat=c.n;
+  b.innerHTML=(c.img?`<img src="img/${c.img}" alt="${c.n}" style="object-position:50% 35%">`:'')+`<div class="c"><h3>${c.n}</h3><small>${c.items.length} services</small></div>`;$('#cats').appendChild(b)});
+
+/* catalogue */
+function renderCatalog(){const side=$('#side');side.innerHTML='<h4>Categories</h4>';const cat=$('#catalog');cat.innerHTML='';
+  CAT.forEach((c,ci)=>{const b=document.createElement('button');b.innerHTML=`${c.n}<span>${c.items.length}</span>`;b.dataset.c=c.n;b.onclick=()=>{$('#cat-'+ci).scrollIntoView({behavior:'smooth'})};side.appendChild(b);
+    const s=document.createElement('section');s.className='cat';s.id='cat-'+ci;s.innerHTML=`<h2>${c.n}</h2><p>${c.d}</p>`;
+    ITEMS.filter(i=>i.cat===c.n).forEach(it=>{const r=document.createElement('div');r.className='item';r.innerHTML=`<div><h3>${it.name}</h3><small>${it.desc}</small></div><div class="pr"><b>${inr(it.price)}</b><span>${dur(it.min)}</span></div><button class="add" data-id="${it.id}" type="button"></button>`;s.appendChild(r)});cat.appendChild(s)});
+  const n=document.createElement('p');n.className='note';n.textContent='All prices and durations are samples for this demo. We will replace them with Kym\'s real price list.';cat.appendChild(n);
+  cat.onclick=e=>{const a=e.target.closest('.add');if(!a)return;toggle(+a.dataset.id)};syncAdd()}
+function syncAdd(){$$('.add').forEach(b=>{const on=ST.cart.has(+b.dataset.id);b.classList.toggle('in',on);b.textContent=on?'Added ✓':'Add'})}
+function toggle(id){ST.cart.has(id)?ST.cart.delete(id):ST.cart.add(id);save();ST.time=null;syncAll();toast(ST.cart.has(id)?ITEMS[id].name+' added':'Removed')}
+function syncAll(){const t=totals();$('#cn').textContent=t.n;$('#mbn').textContent=t.n+' service'+(t.n===1?'':'s')+(t.n?' · '+dur(t.min):'');$('#mbt').textContent=inr(t.price);syncAdd();if(route()==='book')renderBook()}
+
+/* booking */
+const STEPS=['Services','Date & time','Your details','Payment'];
+function days(){const a=[],d0=new Date();for(let i=0;i<8;i++){const d=new Date(d0);d.setDate(d0.getDate()+i);a.push(d)}return a}
+const MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const key=d=>d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+function taken(d,t){let h=0;const s=key(d)+t;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h%100<28}
+const TIMES=['11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00'];
+function lbl(t){let[h,m]=t.split(':').map(Number);return(h%12||12)+':'+String(m).padStart(2,'0')+(h<12?' AM':' PM')}
+function past(d,t){const n=new Date();if(key(d)!==key(n))return false;const[h,m]=t.split(':').map(Number);return h*60+m<=n.getHours()*60+n.getMinutes()+60}
+function stepsUI(){const s=$('#steps');s.innerHTML='';STEPS.forEach((n,i)=>{const b=document.createElement('button');b.innerHTML=`<b>${i+1}</b>${n}`;b.className=ST.done?'done':(i===ST.step?'on':(i<ST.step?'done':''));b.onclick=()=>{if(ST.done)return;if(i<ST.step)gotoStep(i)};s.appendChild(b)});s.style.display=ST.done?'none':'flex'}
+function gotoStep(i){ST.step=i;renderBook();window.scrollTo({top:0,behavior:'smooth'})}
+function renderBook(){stepsUI();const p=$('#panel');const t=totals();
+  if(ST.done){$('#sum').style.display='none';$('#bkwrap').style.gridTemplateColumns='1fr';return renderDone(p)}
+  $('#sum').style.display='';$('#bkwrap').style.gridTemplateColumns='';
+  if(ST.step===0){p.innerHTML=`<h2>Choose your services</h2><p class="s">Add what you need. You can pick from every category.</p><div id="mini"></div><p style="margin-top:22px"><a class="btn btn-o" href="#/services">Browse all services</a></p>
+    <div class="nav2"><span></span><button class="btn btn-d" id="nx" ${t.n?'':'disabled'}>Continue</button></div>`;
+    const m=$('#mini');const pop=[0,3,5,9,14,17,20];pop.forEach(id=>{const it=ITEMS[id];if(!it)return;const r=document.createElement('div');r.className='item';r.innerHTML=`<div><h3>${it.name}</h3><small>${it.cat} · ${it.desc}</small></div><div class="pr"><b>${inr(it.price)}</b><span>${dur(it.min)}</span></div><button class="add" data-id="${it.id}" type="button"></button>`;m.appendChild(r)});
+    m.onclick=e=>{const a=e.target.closest('.add');if(a)toggle(+a.dataset.id)};syncAdd();$('#nx').onclick=()=>gotoStep(1)}
+  if(ST.step===1){const ds=days();if(!ST.date)ST.date=key(ds[0]);
+    p.innerHTML=`<h2>Pick a date and time</h2><p class="s">Your visit takes about ${dur(t.min||30)}. Open slots for the next 7 days.</p>
+    <div class="sel"><div class="fld" style="margin:0"><label>Artist</label><select id="art"><option>Any available artist</option><option>Senior stylist</option><option>Makeup artist</option><option>Nail technician</option></select></div></div>
+    <div class="dates" id="ds"></div><div class="slots" id="sl"></div><p class="note">Sample slots for this demo. Real availability will come from Kym's calendar.</p>
+    <div class="nav2"><button class="btn btn-o" id="bk">Back</button><button class="btn btn-d" id="nx" ${ST.time?'':'disabled'}>Continue</button></div>`;
+    $('#art').value=ST.artist;$('#art').onchange=e=>ST.artist=e.target.value;
+    ds.forEach(d=>{const b=document.createElement('button');b.className='dt'+(key(d)===ST.date?' on':'');b.type='button';b.innerHTML=`<small>${WD[d.getDay()]}</small><b>${d.getDate()}</b><span>${MS[d.getMonth()]}</span>`;b.onclick=()=>{ST.date=key(d);ST.time=null;renderBook()};$('#ds').appendChild(b)});
+    const dd=ds.find(d=>key(d)===ST.date);
+    [['Morning',TIMES.filter(x=>x<'12:00')],['Afternoon',TIMES.filter(x=>x>='12:00'&&x<'16:00')],['Evening',TIMES.filter(x=>x>='16:00')]].forEach(g=>{const h=document.createElement('h4');h.textContent=g[0];$('#sl').appendChild(h);const w=document.createElement('div');w.className='sg';g[1].forEach(tm=>{const b=document.createElement('button');b.type='button';b.className='sl'+(ST.time===tm?' on':'');b.textContent=lbl(tm);b.disabled=taken(dd,tm)||past(dd,tm);b.onclick=()=>{ST.time=tm;renderBook()};w.appendChild(b)});$('#sl').appendChild(w)});
+    $('#bk').onclick=()=>gotoStep(0);$('#nx').onclick=()=>gotoStep(2)}
+  if(ST.step===2){p.innerHTML=`<h2>Your details</h2><p class="s">We'll send the confirmation to your WhatsApp.</p>
+    <div class="two"><div class="fld"><label for="nm">Full name</label><input id="nm" autocomplete="name" value="${ST.name.replace(/"/g,'&quot;')}"><span class="er" id="e1"></span></div><div class="fld"><label for="ph">Mobile number</label><input id="ph" inputmode="numeric" maxlength="10" placeholder="10-digit number" autocomplete="tel" value="${ST.phone}"><span class="er" id="e2"></span></div></div>
+    <div class="fld"><label for="nt">Notes for the stylist (optional)</label><textarea id="nt" rows="3" placeholder="Hair length, reference photo on WhatsApp, allergies…">${ST.note}</textarea></div>
+    <div class="nav2"><button class="btn btn-o" id="bk">Back</button><button class="btn btn-d" id="nx">Continue to payment</button></div>`;
+    $('#bk').onclick=()=>{keep();gotoStep(1)};$('#nx').onclick=()=>{keep();let ok=true;
+      if(ST.name.trim().length<2){$('#e1').textContent='Please enter your name';$('#nm').classList.add('bad');ok=false}
+      if(!/^[6-9]\d{9}$/.test(ST.phone)){$('#e2').textContent='Enter a valid 10-digit mobile number';$('#ph').classList.add('bad');ok=false}
+      if(ok)gotoStep(3)};
+    function keep(){ST.name=$('#nm').value;ST.phone=$('#ph').value.replace(/\D/g,'');ST.note=$('#nt').value}}
+  if(ST.step===3){const dep=Math.round(t.price*.2/10)*10;
+    p.innerHTML=`<h2>Payment</h2><p class="s">Pay now to confirm your slot, or pay at the salon.</p>
+    <div class="demo"><b>Demo</b><span>This is a concept checkout. No real payment is taken. A live site would use a gateway such as Razorpay.</span></div>
+    <div class="pay" id="po">
+      <div class="po ${ST.pay==='deposit'?'on':''}" data-v="deposit"><i></i><div><b>Pay 20% deposit now</b><small>Balance at the salon</small></div><span class="amt">${inr(dep)}</span></div>
+      <div class="po ${ST.pay==='full'?'on':''}" data-v="full"><i></i><div><b>Pay in full now</b><small>Nothing to pay at the salon</small></div><span class="amt">${inr(t.price)}</span></div>
+      <div class="po ${ST.pay==='salon'?'on':''}" data-v="salon"><i></i><div><b>Pay at the salon</b><small>Slot held for 2 hours</small></div><span class="amt">${inr(0)}</span></div>
+    </div>
+    <div id="pm"></div>
+    <div class="nav2"><button class="btn btn-o" id="bk">Back</button><button class="btn btn-g" id="pay">${ST.pay==='salon'?'Confirm booking':'Pay now'}</button></div>`;
+    $$('#po .po').forEach(x=>x.onclick=()=>{ST.pay=x.dataset.v;renderBook()});
+    const due=ST.pay==='full'?t.price:ST.pay==='deposit'?dep:0;
+    if(due){$('#pm').innerHTML=`<div class="methods" id="mt"></div><div id="mf"></div>`;
+      ['UPI','Card','Net banking'].forEach(m=>{const b=document.createElement('button');b.type='button';b.textContent=m;b.className=ST.method===m?'on':'';b.onclick=()=>{ST.method=m;renderBook()};$('#mt').appendChild(b)});
+      $('#mf').innerHTML=ST.method==='UPI'?`<div class="fld"><label>UPI ID</label><input id="upi" placeholder="name@upi" value="demo@upi"></div>`:ST.method==='Card'?`<div class="fld"><label>Card number</label><input id="cd" placeholder="4111 1111 1111 1111" value="4111 1111 1111 1111"></div><div class="two"><div class="fld"><label>Expiry</label><input placeholder="MM/YY" value="12/30"></div><div class="fld"><label>CVV</label><input placeholder="•••" value="123"></div></div>`:`<div class="fld"><label>Bank</label><input value="Demo Bank"></div>`}
+    $('#pay').textContent=due?('Pay '+inr(due)):'Confirm booking';
+    $('#bk').onclick=()=>gotoStep(2);
+    $('#pay').onclick=()=>{$('#proct').textContent=due?'Processing payment…':'Confirming your booking…';$('#proc').classList.add('on');setTimeout(()=>{$('#proc').classList.remove('on');finish(due)},1800)}}
+  summary()}
+function summary(){const t=totals(),c=cartItems(),s=$('#sum');
+  s.innerHTML=`<h3>Your booking</h3>`+(c.length?`<ul>${c.map(i=>`<li><span>${i.name}</span><span>${inr(i.price)}<button data-r="${i.id}" type="button" aria-label="Remove">remove</button></span></li>`).join('')}</ul>`:'<p class="empty">No services yet. Add some to continue.</p>')+
+  `<div class="meta">${ST.date&&ST.time&&ST.step>1?`<span>📅 ${fmtDate(ST.date)} at ${lbl(ST.time)}</span>`:''}${t.n?`<span>⏱ About ${dur(t.min)}</span>`:''}${ST.step>1?`<span>👤 ${ST.artist}</span>`:''}</div><div class="tot"><span>Total</span><b>${inr(t.price)}</b></div>`;
+  s.onclick=e=>{const r=e.target.closest('[data-r]');if(r){ST.cart.delete(+r.dataset.r);save();ST.time=null;if(!ST.cart.size)ST.step=0;syncAll()}}}
+function fmtDate(k){const[y,m,d]=k.split('-').map(Number);const dt=new Date(y,m-1,d);return WD[dt.getDay()]+', '+d+' '+MS[m-1]}
+function finish(due){const t=totals();const id='KYM-'+Math.random().toString(36).slice(2,6).toUpperCase()+'-'+String(Date.now()).slice(-3);
+  ST.done={id,due,total:t.price,items:cartItems(),date:ST.date,time:ST.time,artist:ST.artist,name:ST.name,phone:ST.phone,note:ST.note,mode:ST.pay};renderBook();window.scrollTo({top:0,behavior:'smooth'})}
+function renderDone(p){const d=ST.done;
+  const msg=`Hi Kym's Salon! I just booked online.\nBooking ID: ${d.id}\nName: ${d.name} (${d.phone})\nWhen: ${fmtDate(d.date)} at ${lbl(d.time)}\nServices: ${d.items.map(i=>i.name).join(', ')}\nTotal: ${inr(d.total)} (${d.mode==='salon'?'pay at salon':'paid '+inr(d.due)})${d.note?'\nNote: '+d.note:''}`;
+  p.innerHTML=`<div class="dn"><div class="ck"></div><h2>You're booked, ${d.name.split(' ')[0]}.</h2><p class="s" style="color:var(--mute)">Your slot is confirmed. A summary is ready to send on WhatsApp.</p></div>
+  <div class="ticket"><div class="th"><small>Booking ID</small><b>${d.id}</b></div><div class="tb">
+   <div><span>When</span><b>${fmtDate(d.date)} · ${lbl(d.time)}</b></div><div><span>Artist</span><b>${d.artist}</b></div>
+   <div><span>Services</span><b style="text-align:right">${d.items.map(i=>i.name).join('<br>')}</b></div>
+   <div><span>Total</span><b>${inr(d.total)}</b></div><div><span>${d.mode==='salon'?'To pay at salon':'Paid now'}</span><b>${d.mode==='salon'?inr(d.total):inr(d.due)}</b></div>${d.mode==='deposit'?`<div><span>Balance at salon</span><b>${inr(d.total-d.due)}</b></div>`:''}</div></div>
+  <div class="acts"><a class="btn btn-g" href="#" id="wsend">Send on WhatsApp</a><button class="btn btn-o" id="ics">Add to calendar</button><button class="btn btn-o" id="again">Book another</button></div>
+  <p class="note" style="text-align:center;margin-top:18px">Demo booking. Nothing was charged or sent to the salon.</p>`;
+  $('#wsend').onclick=e=>{e.preventDefault();window.open(wa(msg),'_blank','noopener')};
+  $('#ics').onclick=()=>{const[y,m,dd]=d.date.split('-').map(Number),[h,mi]=d.time.split(':').map(Number),mins=d.items.reduce((s,i)=>s+i.min,0);const f=x=>new Date(x.getTime()-x.getTimezoneOffset()*6e4).toISOString().replace(/[-:]|\.\d{3}/g,'').slice(0,15);const a=new Date(y,m-1,dd,h,mi),b=new Date(a.getTime()+mins*6e4);
+    const txt=['BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT','UID:'+d.id+'@kyms-demo','DTSTAMP:'+f(new Date())+'Z','DTSTART:'+f(a),'DTEND:'+f(b),"SUMMARY:Kym's Salon appointment",'LOCATION:Rajouri Garden, New Delhi','DESCRIPTION:'+d.items.map(i=>i.name).join(', ')+' (Booking '+d.id+')','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const l=document.createElement('a');l.href=URL.createObjectURL(new Blob([txt],{type:'text/calendar'}));l.download='kyms-appointment.ics';l.click()};
+  $('#again').onclick=()=>{ST.done=null;ST.cart=new Set();ST.step=0;ST.time=null;save();syncAll();renderBook()}}
+
+/* router */
+function route(){return (location.hash.replace(/^#\/?/,'').split('?')[0]||'home')}
+function show(){let r=route();if(!['home','services','book','about','contact'].includes(r))r='home';
+  $$('.pg').forEach(p=>p.classList.toggle('on',p.id==='p-'+r));$$('nav.main a').forEach(a=>a.classList.toggle('on',a.dataset.p===r));
+  $('#drawer').classList.remove('on');$('#mbar').style.display=(r==='book'?'none':'');if(r==='book')renderBook();if(r==='services'&&!$('#catalog').children.length)renderCatalog();
+  window.scrollTo(0,0);document.title=({home:"Kym's Salon | Hair, Makeup, Nails, Lashes | Rajouri Garden",services:"Services & prices | Kym's Salon",book:"Book appointment | Kym's Salon",about:"About | Kym's Salon",contact:"Contact | Kym's Salon"})[r];
+  document.querySelectorAll('.rv:not(.in)').forEach(e=>io.observe(e))}
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.08});
+addEventListener('hashchange',show);
+document.addEventListener('click',e=>{const a=e.target.closest('[data-cat]');if(!a)return;const c=a.dataset.cat;setTimeout(()=>{if(!$('#catalog').children.length)renderCatalog();const ci=CAT.findIndex(x=>x.n===c);const el=$('#cat-'+ci);if(el)el.scrollIntoView({behavior:'smooth'})},80)});
+$('#burger').onclick=()=>$('#drawer').classList.add('on');$('#dx').onclick=()=>$('#drawer').classList.remove('on');
+
+/* hero slideshow */
+(function(){const im=$$('#him img'),cap=['Hair colour','Bridal','Layered cuts'];let c=0;const dots=$('#hdots');im.forEach((_,i)=>{const b=document.createElement('button');b.type='button';b.onclick=()=>{set(i);clearInterval(t)};dots.appendChild(b)});
+  function set(i){c=i;im.forEach((m,j)=>m.classList.toggle('on',j===i));$('#hcap').textContent=cap[i];[...dots.children].forEach((b,j)=>b.classList.toggle('on',j===i))}set(0);const t=setInterval(()=>set((c+1)%im.length),5200)})();
+
+syncAll();show();
+</script>
+</body>
+</html>
