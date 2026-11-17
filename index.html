@@ -480,6 +480,7 @@ const MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec
 const key=d=>d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
 function taken(d,t){let h=0;const s=key(d)+t;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h%100<28}
 const TIMES=['11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00'];
+function fits(tm,min){const[h,m]=tm.split(':').map(Number),st=h*60+m;return min>300?st<=12*60:st+min<=20*60}
 function lbl(t){let[h,m]=t.split(':').map(Number);return(h%12||12)+':'+String(m).padStart(2,'0')+(h<12?' AM':' PM')}
 function past(d,t){const n=new Date();if(key(d)!==key(n))return false;const[h,m]=t.split(':').map(Number);return h*60+m<=n.getHours()*60+n.getMinutes()+60}
 function stepsUI(){const s=$('#steps');s.innerHTML='';STEPS.forEach((n,i)=>{const b=document.createElement('button');b.innerHTML=`<b>${i+1}</b>${n}`;b.className=ST.done?'done':(i===ST.step?'on':(i<ST.step?'done':''));b.onclick=()=>{if(ST.done)return;if(i<ST.step)gotoStep(i)};s.appendChild(b)});s.style.display=ST.done?'none':'flex'}
@@ -492,14 +493,14 @@ function renderBook(){stepsUI();const p=$('#panel');const t=totals();
     const m=$('#mini');const pop=[0,3,5,9,14,17,20];pop.forEach(id=>{const it=ITEMS[id];if(!it)return;const r=document.createElement('div');r.className='item';r.innerHTML=`<div><h3>${it.name}</h3><small>${it.cat} · ${it.desc}</small></div><div class="pr"><b>${inr(it.price)}</b><span>${dur(it.min)}</span></div><button class="add" data-id="${it.id}" type="button"></button>`;m.appendChild(r)});
     m.onclick=e=>{const a=e.target.closest('.add');if(a)toggle(+a.dataset.id)};syncAdd();$('#nx').onclick=()=>gotoStep(1)}
   if(ST.step===1){const ds=days();if(!ST.date)ST.date=key(ds[0]);
-    p.innerHTML=`<h2>Pick a date and time</h2><p class="s">Your visit takes about ${dur(t.min||30)}. Open slots for the next 7 days.</p>
+    p.innerHTML=`<h2>Pick a date and time</h2><p class="s">Your visit takes about ${dur(t.min||30)}. Open slots for the next 7 days.${t.min>300?' Long bundles start in the morning, and we will confirm timing on WhatsApp.':''}</p>
     <div class="sel"><div class="fld" style="margin:0"><label>Artist</label><select id="art"><option>Any available artist</option><option>Senior stylist</option><option>Makeup artist</option><option>Nail technician</option></select></div></div>
     <div class="dates" id="ds"></div><div class="slots" id="sl"></div><p class="note">Sample slots for this demo. Real availability will come from Kym's calendar.</p>
     <div class="nav2"><button class="btn btn-o" id="bk">Back</button><button class="btn btn-d" id="nx" ${ST.time?'':'disabled'}>Continue</button></div>`;
     $('#art').value=ST.artist;$('#art').onchange=e=>ST.artist=e.target.value;
     ds.forEach(d=>{const b=document.createElement('button');b.className='dt'+(key(d)===ST.date?' on':'');b.type='button';b.innerHTML=`<small>${WD[d.getDay()]}</small><b>${d.getDate()}</b><span>${MS[d.getMonth()]}</span>`;b.onclick=()=>{ST.date=key(d);ST.time=null;renderBook()};$('#ds').appendChild(b)});
     const dd=ds.find(d=>key(d)===ST.date);
-    [['Morning',TIMES.filter(x=>x<'12:00')],['Afternoon',TIMES.filter(x=>x>='12:00'&&x<'16:00')],['Evening',TIMES.filter(x=>x>='16:00')]].forEach(g=>{const h=document.createElement('h4');h.textContent=g[0];$('#sl').appendChild(h);const w=document.createElement('div');w.className='sg';g[1].forEach(tm=>{const b=document.createElement('button');b.type='button';b.className='sl'+(ST.time===tm?' on':'');b.textContent=lbl(tm);b.disabled=taken(dd,tm)||past(dd,tm);b.onclick=()=>{ST.time=tm;renderBook()};w.appendChild(b)});$('#sl').appendChild(w)});
+    [['Morning',TIMES.filter(x=>x<'12:00')],['Afternoon',TIMES.filter(x=>x>='12:00'&&x<'16:00')],['Evening',TIMES.filter(x=>x>='16:00')]].forEach(g=>{const h=document.createElement('h4');h.textContent=g[0];$('#sl').appendChild(h);const w=document.createElement('div');w.className='sg';g[1].forEach(tm=>{const b=document.createElement('button');b.type='button';b.className='sl'+(ST.time===tm?' on':'');b.textContent=lbl(tm);b.disabled=taken(dd,tm)||past(dd,tm)||!fits(tm,t.min);b.onclick=()=>{ST.time=tm;renderBook()};w.appendChild(b)});$('#sl').appendChild(w)});
     $('#bk').onclick=()=>gotoStep(0);$('#nx').onclick=()=>gotoStep(2)}
   if(ST.step===2){p.innerHTML=`<h2>Your details</h2><p class="s">We'll send the confirmation to your WhatsApp.</p>
     <div class="two"><div class="fld"><label for="nm">Full name</label><input id="nm" autocomplete="name" value="${ST.name.replace(/"/g,'&quot;')}"><span class="er" id="e1"></span></div><div class="fld"><label for="ph">Mobile number</label><input id="ph" inputmode="numeric" maxlength="10" placeholder="10-digit number" autocomplete="tel" value="${ST.phone}"><span class="er" id="e2"></span></div></div>
